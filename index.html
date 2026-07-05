@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tell us about your course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1B2A4A;
+    --ink-soft: #2E4066;
+    --amber: #E8A33D;
+    --amber-deep: #C9831E;
+    --paper: #FAF7F2;
+    --paper-card: #FFFFFF;
+    --slate: #6B7280;
+    --line: #E7E1D6;
+    --error: #C24545;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 10% 10%, rgba(232,163,61,0.07), transparent 40%),
+      radial-gradient(circle at 90% 90%, rgba(27,42,74,0.05), transparent 40%);
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+
+  .wrap {
+    width: 100%;
+    max-width: 480px;
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--amber-deep);
+    margin-bottom: 14px;
+  }
+
+  .eyebrow .step-dots {
+    display: flex;
+    gap: 5px;
+  }
+  .step-dots span {
+    width: 18px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--line);
+  }
+  .step-dots span.active { background: var(--amber); }
+
+  h1 {
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 1.25;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+
+  .sub {
+    font-size: 15px;
+    color: var(--slate);
+    line-height: 1.5;
+    margin: 0 0 28px;
+  }
+
+  .card {
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px 24px;
+    box-shadow: 0 1px 2px rgba(27,42,74,0.04), 0 12px 32px -12px rgba(27,42,74,0.12);
+  }
+
+  .field {
+    margin-bottom: 18px;
+  }
+
+  .field:last-of-type {
+    margin-bottom: 0;
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+
+  label .opt {
+    color: var(--slate);
+    font-weight: 400;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    padding: 11px 13px;
+    border: 1.5px solid var(--line);
+    border-radius: 9px;
+    background: var(--paper);
+    color: var(--ink);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  textarea { resize: vertical; min-height: 70px; font-family: 'Inter', sans-serif; }
+
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--amber);
+    box-shadow: 0 0 0 3px rgba(232,163,61,0.18);
+  }
+
+  input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 1px;
+  }
+
+  .error-msg {
+    font-size: 12.5px;
+    color: var(--error);
+    margin-top: 5px;
+    display: none;
+  }
+
+  .field.invalid input,
+  .field.invalid select {
+    border-color: var(--error);
+  }
+  .field.invalid .error-msg { display: block; }
+
+  .actions {
+    margin-top: 26px;
+  }
+
+  button.submit {
+    width: 100%;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 13px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  button.submit:hover { background: var(--ink-soft); }
+  button.submit:active { transform: translateY(1px); }
+  button.submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .spinner {
+    width: 15px; height: 15px;
+    border: 2px solid rgba(250,247,242,0.35);
+    border-top-color: var(--paper);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: none;
+  }
+  button.submit.loading .spinner { display: inline-block; }
+  button.submit.loading .btn-label { opacity: 0.85; }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .foot-note {
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--slate);
+    margin-top: 18px;
+    line-height: 1.5;
+  }
+
+  .banner {
+    display: none;
+    background: #FCEAEA;
+    border: 1px solid #F0B8B8;
+    color: var(--error);
+    font-size: 13.5px;
+    padding: 11px 14px;
+    border-radius: 9px;
+    margin-bottom: 18px;
+  }
+  .banner.show { display: block; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .spinner { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="eyebrow">
+    <span class="step-dots"><span class="active"></span><span></span></span>
+    Step 1 of 2
+  </div>
+  <h1>Tell us a bit about your course</h1>
+  <p class="sub">Just finished (or currently taking) a course with us? Fill this in — it takes under a minute — and we'll guide you to leave a quick review.</p>
+
+  <div class="card">
+    <div class="banner" id="formBanner"></div>
+    <form id="reviewForm" novalidate>
+
+      <div class="field" data-field="name">
+        <label for="name">Full name</label>
+        <input type="text" id="name" name="name" placeholder="e.g. Aarav Mehta" autocomplete="name">
+        <div class="error-msg">Please enter your name.</div>
+      </div>
+
+      <div class="field" data-field="city">
+        <label for="city">City</label>
+        <input type="text" id="city" name="city" placeholder="e.g. Mumbai" autocomplete="address-level2">
+        <div class="error-msg">Please enter your city.</div>
+      </div>
+
+      <div class="field" data-field="phone">
+        <label for="phone">Phone number <span class="opt">(for WhatsApp reminder, optional)</span></label>
+        <input type="tel" id="phone" name="phone" placeholder="e.g. 98765 43210" autocomplete="tel">
+        <div class="error-msg">Please enter a valid phone number.</div>
+      </div>
+
+      <div class="field" data-field="email">
+        <label for="email">Email <span class="opt">(optional)</span></label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email">
+        <div class="error-msg">Please enter a valid email.</div>
+      </div>
+
+      <div class="field" data-field="course">
+        <label for="course">Which course did you take?</label>
+        <select id="course" name="course">
+          <option value="" disabled selected>Select a course</option>
+        </select>
+        <div class="error-msg">Please select a course.</div>
+      </div>
+
+      <div class="field" data-field="batch">
+        <label for="batch">Batch / month joined <span class="opt">(optional)</span></label>
+        <input type="text" id="batch" name="batch" placeholder="e.g. March 2026">
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="submit" id="submitBtn">
+          <span class="spinner"></span>
+          <span class="btn-label">Continue</span>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <p class="foot-note">Your details are only used to personalize the review reminder.<br>We never post anything on your behalf.</p>
+</div>
+
+<script>
+  // ====== CONFIG ======
+  // Paste your deployed Apps Script Web App URL here after deployment.
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzUMDOBarlVYlsAoRCZg9Z7gQEkw3i83QsinRLbWBahSR_RwgYUSVwg6J_qktMtMgfL/exec";
+
+  // Course list shown in the dropdown. Edit this to match what you offer.
+  const COURSES = [
+    "Spoken English",
+    "Digital Marketing",
+    "Web Development",
+    "Graphic Design",
+    "Tally & Accounting",
+    "Data Entry",
+    "Personality Development",
+    "Other"
+  ];
+
+  const courseSelect = document.getElementById('course');
+  COURSES.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c;
+    opt.textContent = c;
+    courseSelect.appendChild(opt);
+  });
+
+  const form = document.getElementById('reviewForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const banner = document.getElementById('formBanner');
+
+  function setFieldError(name, hasError) {
+    const fieldEl = form.querySelector(`[data-field="${name}"]`);
+    fieldEl.classList.toggle('invalid', hasError);
+  }
+
+  function validate() {
+    let valid = true;
+    const name = form.name.value.trim();
+    const city = form.city.value.trim();
+    const phone = form.phone.value.trim();
+    const email = form.email.value.trim();
+    const course = form.course.value;
+
+    setFieldError('name', name.length < 2);
+    if (name.length < 2) valid = false;
+
+    setFieldError('city', city.length < 2);
+    if (city.length < 2) valid = false;
+
+    const phoneOk = phone === '' || /^[+0-9\s-]{7,15}$/.test(phone);
+    setFieldError('phone', !phoneOk);
+    if (!phoneOk) valid = false;
+
+    const emailOk = email === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    setFieldError('email', !emailOk);
+    if (!emailOk) valid = false;
+
+    setFieldError('course', !course);
+    if (!course) valid = false;
+
+    return valid;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    banner.classList.remove('show');
+
+    if (!validate()) return;
+
+   const payload = {
+    action: "generateReview",
+
+    name: form.name.value.trim(),
+    city: form.city.value.trim(),
+    phone: form.phone.value.trim(),
+    email: form.email.value.trim(),
+    course: form.course.value,
+    batch: form.batch.value.trim(),
+
+    submittedAt: new Date().toISOString()
+  };
+
+    submitBtn.disabled = true;
+    submitBtn.classList.add('loading');
+
+    try {
+      
+
+      const res = await fetch(SCRIPT_URL, {
+       method: "POST",
+       body: JSON.stringify(payload)
+      });
+
+      const data = await res.json();
+
+      if (!data || data.status !== 'success') {
+        throw new Error(data && data.message ? data.message : 'Unknown error');
+      }
+
+      // Pass details to the thank-you page via sessionStorage (no server round-trip needed)
+      sessionStorage.setItem("reviewRequest", JSON.stringify({
+        ...payload,
+        review: data.review
+      }));
+      window.location.href = 'review.html';
+
+    } catch (err) {
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('loading');
+
+      if (err.message === 'CONFIG') {
+        banner.textContent = 'Setup needed: paste your Apps Script Web App URL into SCRIPT_URL in index.html before this form can save data.';
+      } else {
+        banner.textContent = "Something went wrong saving your details. Please try again — if it keeps happening, let our staff know.";
+      }
+      banner.classList.add('show');
+    }
+  });
+
+  // Live-clear error state as the user fixes a field
+  ['name','city','phone','email','course'].forEach(id => {
+    form[id].addEventListener('input', () => setFieldError(id, false));
+    form[id].addEventListener('change', () => setFieldError(id, false));
+  });
+</script>
+
+</body>
+</html>

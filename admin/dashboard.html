@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Review Generator - Admin Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../css/dashboard.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <h2>🤖 AI Review</h2>
+
+    <ul>
+
+        <li class="active">Dashboard</li>
+
+        <li>Businesses</li>
+
+        <li>Reviews</li>
+
+        <li>Analytics</li>
+
+        <li>Reports</li>
+
+        <li>Settings</li>
+
+        <li>Logout</li>
+
+    </ul>
+
+</div>
+
+<div class="main">
+
+<h1>Dashboard</h1>
+
+<div class="cards">
+
+<div class="card">
+<h3>Total Reviews</h3>
+<h2 id="totalReviews">0</h2>
+</div>
+
+<div class="card">
+<h3>Businesses</h3>
+<h2 id="totalBusinesses">0</h2>
+</div>
+
+<div class="card">
+<h3>Today's Reviews</h3>
+<h2 id="todayReviews">0</h2>
+</div>
+
+<div class="card">
+<h3>AI Reviews</h3>
+<h2 id="aiReviews">0</h2>
+</div>
+
+</div>
+
+<div class="recent">
+
+<h2>Recent Reviews</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Date</th>
+<th>Student</th>
+<th>Business</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="reviewTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script src="../js/dashboard.js"></script>
+
+</body>
+</html>

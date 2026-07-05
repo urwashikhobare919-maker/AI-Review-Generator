@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Review Generator</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/review.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="header">
+
+            <div class="ai-icon">
+                🤖
+            </div>
+
+            <h1>AI Review Generator</h1>
+
+            <p id="statusText">
+                Generating your personalized review...
+            </p>
+
+        </div>
+
+
+        <div class="loader-area" id="loader">
+
+            <div class="loader"></div>
+
+            <p>Please wait while AI creates your review...</p>
+
+        </div>
+
+
+
+        <div class="review-section hidden" id="reviewSection">
+
+            <h2>Generated Review</h2>
+
+            <textarea
+                id="reviewBox"
+                readonly
+                placeholder="AI review will appear here...">
+            </textarea>
+
+        </div>
+
+
+
+        <div class="buttons hidden" id="buttons">
+
+            <button id="copyBtn">
+
+                📋 Copy Review
+
+            </button>
+
+
+            <button id="generateBtn">
+
+                🔄 Generate Again
+
+            </button>
+
+
+            <button id="nextBtn">
+
+                ➜ Next
+
+            </button>
+
+        </div>
+
+
+        <div class="message" id="message">
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="js/review.js"></script>
+
+</body>
+</html>

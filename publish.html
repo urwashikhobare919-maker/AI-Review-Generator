@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Publish Review</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/publish.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<div class="header">
+
+<h1>Review Ready</h1>
+
+<p>
+Copy the review below and paste it on Google Reviews.
+</p>
+
+</div>
+
+<div class="reviewBox">
+
+<textarea
+id="reviewText"
+readonly
+placeholder="Generated review will appear here..."></textarea>
+
+</div>
+
+<div class="buttons">
+
+<button id="copyBtn">
+
+📋 Copy Review
+
+</button>
+
+<button id="googleBtn">
+
+🌐 Open Google Review
+
+</button>
+
+<button id="newBtn">
+
+🔄 Generate New
+
+</button>
+
+</div>
+
+<div id="message"></div>
+
+</div>
+
+</div>
+
+<script src="js/publish.js"></script>
+
+</body>
+</html>
